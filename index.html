@@ -1,23 +1,21 @@
 <!DOCTYPE html>
 <html lang='zh-CN'>
 <head>
-<meta charset='UTF-8'>
-<meta property="og:title" content="超级派送 第18版 — 能哥配送大冒险">
-<meta property="og:description" content="安能物流品牌游戏 · 竖屏真手机版 · 扫码即玩无需下载">
+<meta charset='UTF-8'><meta property="og:title" content="超级能哥 第20版 — 能哥配送大冒险">
+<meta property="og:description" content="安能物流品牌游戏 · 玩家发布修正版 · 扫码即玩无需下载">
 <meta property="og:image" content="https://jackson132-commits.github.io/chaogisong-song18/share-cover.png">
 <meta property="og:image:width" content="600">
 <meta property="og:image:height" content="1066">
 <meta property="og:type" content="website">
-
 <meta name='viewport' content='width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no,viewport-fit=cover'>
-<title>超级派送｜第18版｜竖屏真手机版</title>
+<title>超级能哥</title>
 
 <meta name="description" content="闯六大配送场景，收集安心达货箱，帮能哥完成超级派送挑战！">
-<meta property="og:title" content="超级派送｜安能品牌小游戏">
+<meta property="og:title" content="超级能哥｜安能品牌小游戏">
 <meta property="og:description" content="闯六大配送场景，收集安心达货箱，挑战最后一公里！">
 <meta property="og:image" content="share-cover.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="超级派送｜安能品牌小游戏">
+<meta name="twitter:title" content="超级能哥｜安能品牌小游戏">
 <meta name="twitter:description" content="闯六大配送场景，帮能哥完成超级派送挑战！">
 <meta name="twitter:image" content="share-cover.png">
 
@@ -51,12 +49,12 @@ body{display:flex;justify-content:center;background:#05070d}
 
 
 const canvas=document.getElementById('game'),mainCtx=canvas.getContext('2d');
-const MAIN_W=1080,MAIN_H=1200;
+const MAIN_W=1080,MAIN_H=1040;
 canvas.width=MAIN_W;canvas.height=MAIN_H;
 const W=1280,H=720,groundY=620,worldW=2800;
 const sceneCanvas=document.createElement('canvas');sceneCanvas.width=W;sceneCanvas.height=H;const ctx=sceneCanvas.getContext('2d');
 
-window.GAME_VERSION='第18版';
+window.GAME_VERSION='';
 window.PORTRAIT_VERSION=true;
 window.MOBILE_PORTRAIT_V16=true;
 
@@ -125,10 +123,10 @@ function fmtTime(t){t=Math.max(0,t||0);const m=Math.floor(t/60),s=(t%60).toFixed
 function rankNo(t){return Math.max(6,Math.min(999,Math.floor(t*2.8 + 6 + Math.max(0,6-litRegions())*12)))}
 function rankTitle(t){if(t<=75)return '闪电派送王';if(t<=105)return '金牌护货员';if(t<=145)return '稳准配送达人';return '坚持通关勇士'}
 function beatPercent(t){return Math.max(55,Math.min(99,Math.round(99-Math.max(0,t-55)*0.42)))}
-function shareLine(){const t=finalTime||totalTime;return '我用 '+fmtTime(t)+' 通关《超级派送》第18版，击败 '+beatPercent(t)+'% 玩家，当前挑战榜第 '+rankNo(t)+' 名！安能4.2万家网点，跑成一张物流网。'}
+function shareLine(){const t=finalTime||totalTime;return '我用 '+fmtTime(t)+' 通关《超级能哥》，击败 '+beatPercent(t)+'% 玩家，当前挑战榜第 '+rankNo(t)+' 名！安能4.2万家网点，跑成一张物流网。'}
 function qrTargetUrl(){return location.protocol.startsWith('http')?location.href:'https://your-game-link.example'}
 function copyShareText(){const s=shareLine();try{if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(s)}}catch(e){}copiedTipTimer=120;return s}
-function savePosterImage(){if(!posterDataUrl)return;const a=document.createElement('a');a.href=posterDataUrl;a.download='超级派送第18版战绩海报.png';document.body.appendChild(a);a.click();a.remove()}
+function savePosterImage(){if(!posterDataUrl)return;const a=document.createElement('a');a.href=posterDataUrl;a.download='超级派送战绩海报.png';document.body.appendChild(a);a.click();a.remove()}
 function generateSharePoster(){
  if(posterBusy)return;posterBusy=true;posterMsg='海报生成中...';
  const t=finalTime||totalTime, rank=rankNo(t), title=rankTitle(t), pct=beatPercent(t);
@@ -136,7 +134,7 @@ function generateSharePoster(){
  const g=c.createLinearGradient(0,0,0,1600);g.addColorStop(0,'#111827');g.addColorStop(1,'#2b220d');c.fillStyle=g;c.fillRect(0,0,900,1600);
  c.fillStyle='rgba(255,179,0,.10)';c.beginPath();c.arc(450,220,250,0,Math.PI*2);c.fill();
  c.fillStyle='#fff';c.textAlign='center';c.font='900 64px sans-serif';c.fillText('超级派送',450,120);
- c.font='700 28px sans-serif';c.fillStyle='#ffb300';c.fillText('第18版｜安能品牌 H5 游戏战绩海报',450,170);
+ c.font='700 28px sans-serif';c.fillStyle='#ffb300';c.fillText('｜安能品牌 H5 游戏战绩海报',450,170);
  c.fillStyle='rgba(255,255,255,.08)';c.strokeStyle='rgba(255,255,255,.16)';c.lineWidth=3;c.beginPath();c.roundRect(80,220,740,610,28);c.fill();c.stroke();
  c.fillStyle='#ffdf7a';c.font='900 52px sans-serif';c.fillText('通关成绩',450,300);
  c.fillStyle='#fff';c.font='700 34px sans-serif';c.fillText('我帮能哥完成了六大配送挑战',450,360);
@@ -158,7 +156,7 @@ function generateSharePoster(){
 }
 
 function setupLevel(i){
- currentLevel=i;state='play';cameraX=0;score=score||0;if(i===0&&litRegions()===0)lives=3;power=0;reviveUsed=false;bullets=[];enemyBullets=[];particles=[];tipText='';tipTimer=0;cooldown=0;hazards=[];gaps=[{x:620,w:100},{x:1370,w:110},{x:2080,w:100}];receiver=null;levelNote='';posterMsg='';
+ currentLevel=i;state='play';cameraX=0;score=score||0;lives=3;power=0;reviveUsed=false;bullets=[];enemyBullets=[];particles=[];tipText='';tipTimer=0;cooldown=0;hazards=[];gaps=[{x:620,w:100},{x:1370,w:110},{x:2080,w:100}];receiver=null;levelNote='';posterMsg='';
  if(i===0&&litRegions()===0)totalTime=0;startTime=performance.now();liveTips=[regions[i].name+'：'+(regions[i].desc||levelNote||'完成本场景配送挑战'),'目标：收集3个安心达“安”字箱成长','提示：三条命耗尽后，本关可复活一次'];
  player.x=100;player.y=groundY-92;player.vx=0;player.vy=0;player.facing=1;player.onGround=false;player.inv=0;
  platforms=[
@@ -243,7 +241,7 @@ function setupLevel(i){
    break;
  }
 
-// 第18版：降低难度，适配手机竖屏体验
+// ：降低难度，适配手机竖屏体验
 enemies.forEach((e,idx)=>{e.speed*=currentLevel===0?0.62:0.76; if(currentLevel>=3&&idx%2===0)e.speed*=0.90;});
 if(boss){boss.hp=Math.max(2,boss.hp-1);boss.maxHp=boss.hp;boss.timer=0;}
 if(currentLevel>0&&hazards.length>2)hazards=hazards.slice(0,2);
@@ -253,31 +251,36 @@ if(!audioCtx){try{audioCtx=new (window.AudioContext||window.webkitAudioContext)(
 
  if(audioCtx&&audioCtx.state==='suspended')audioCtx.resume();startMusic();
 }
-function resetAll(){currentLevel=0;completed=Array(6).fill(false);score=0;totalTime=0;lastLevelTime=0;finalTime=0;state='map'}
+function resetAll(){currentLevel=0;completed=Array(6).fill(false);score=0;lives=3;power=0;reviveUsed=false;totalTime=0;lastLevelTime=0;finalTime=0;state='map'}
 function shoot(){
  if(state!=='play'||power<2||cooldown>0)return;
  cooldown=16;bullets.push({x:player.x+(player.facing>0?56:-8),y:player.y+38,vx:player.facing*8,r:power>=3?10:7,life:100,strong:power>=3});beep(860,.05,'square',.026)
 }
 
+
 function hurt(){
  if(player.inv>0)return;
  lives--; if(power>0)power--;
  player.inv=90;burst(player.x+30,player.y+35,'#ff6868',14);beep(180,.16,'sawtooth',.03);
+
  if(lives<=0){
    if(!reviveUsed){
      reviveUsed=true;
      lives=3;
-     player.inv=140;
-     addLiveTip('复活成功：本关赠送 3 条命，继续派送！');
-     burst(player.x+30,player.y+30,'#8bff9f',22);beep(620,.12,'triangle',.04);setTimeout(()=>beep(860,.14,'triangle',.04),120);
+     player.inv=150;
+     power=Math.max(0,power);
+     addLiveTip('能哥原地复活！本关再送3条命，继续派送！');
+     burst(player.x+30,player.y+30,'#8bff9f',24);beep(620,.12,'triangle',.04);setTimeout(()=>beep(860,.14,'triangle',.04),120);
      player.x=Math.max(80,player.x-120);player.y=160;player.vx=0;player.vy=0;
      return;
    }
    state='lose';stopMusic();return;
  }
+
  addLiveTip('受击提醒：货物差点被妖怪叼走，生命 -1！');
  player.x=Math.max(80,player.x-120);player.y=160;player.vx=0;player.vy=0;
 }
+
 
 function stomp(e){e.dead=true;player.vy=-9.5;score+=80;burst(e.x+24,e.y+20,'#ffd35a',10);beep(720,.08,'triangle',.03)}
 
@@ -449,7 +452,7 @@ function drawNengge(){
 
 function drawParticles(){particles.forEach(p=>{ctx.globalAlpha=Math.max(0,p.life/40);ctx.fillStyle=p.c;ctx.fillRect(p.x-cameraX,p.y,6,6)});ctx.globalAlpha=1}
 function drawHUD(){
- const r=regions[currentLevel];rr(14,14,W-28,96,20,'rgba(8,9,11,.95)','rgba(255,255,255,.16)');txt('超级派送 第18版',W/2,42,32,'#fff','center',900);txt('第 '+(currentLevel+1)+'/6 关：'+r.name,W/2,80,18,'#ffb300','center',700);txt('SCORE '+String(score).padStart(6,'0'),38,42,24,'#ffd54d');txt('生命 '+lives+'  成长 '+power+'/3',38,78,18,'#fff');txt('配送进度 '+litRegions()+'/6',W-260,42,22,'#fff');rr(W-320,70,280,14,7,'rgba(255,255,255,.12)');rr(W-320,70,280*(litRegions()/6),14,7,'#ffb300');
+ const r=regions[currentLevel];rr(14,14,W-28,96,20,'rgba(8,9,11,.95)','rgba(255,255,255,.16)');txt('超级派送 ',W/2,42,32,'#fff','center',900);txt('第 '+(currentLevel+1)+'/6 关：'+r.name,W/2,80,18,'#ffb300','center',700);txt('SCORE '+String(score).padStart(6,'0'),38,42,24,'#ffd54d');txt('生命 '+lives+'  成长 '+power+'/3',38,78,18,'#fff');txt('配送进度 '+litRegions()+'/6',W-260,42,22,'#fff');rr(W-320,70,280,14,7,'rgba(255,255,255,.12)');rr(W-320,70,280*(litRegions()/6),14,7,'#ffb300');
  if(tipTimer>0){rr(W/2-260,122,520,42,18,'rgba(255,179,0,.92)','#111');txt(tipText,W/2,143,22,'#111','center',900,false)}
  rr(20,H-78,W-40,58,18,'rgba(8,9,11,.94)','rgba(255,255,255,.12)');
  const goal=(currentLevel===5&&boss&&!boss.active)?'目标：把货交给终点收货人，完成最终签收':'目标：捡到3个安心达“安”字箱成长，击败运宝头目';
@@ -488,16 +491,18 @@ function drawWeatherOverlay(){
  }
 }
 
-function drawStart(){drawMap('超级派送');ctx.fillStyle='rgba(0,0,0,.55)';ctx.fillRect(0,0,W,H);rr(155,112,970,490,30,'rgba(10,11,14,.92)','rgba(255,255,255,.14)');txt('超级派送',W/2,178,66,'#fff','center',900);txt('能哥配送大冒险｜第18版｜竖屏优先版',W/2,238,26,'#ffb300','center',800);txt('城市 · 乡村大山 · 海岛 · 戈壁 · 高原 · 极寒',W/2,278,23,'#ffb300','center',800);rr(W/2-410,314,820,112,24,'rgba(255,255,255,.07)','rgba(255,255,255,.16)');txt('3秒上手',W/2,340,24,'#ffdf7a','center',900);txt('① 左右移动   ② 跳跃躲运宝   ③ 捡安心达货箱升级',W/2,382,24,'#fff','center',800);txt('变大 → 能量弹 → 护盾成长，遇安能货车还能加速。',W/2,420,20,'rgba(255,255,255,.86)','center',700,false);txt('穿越六大配送场景，最终点亮安能4.2万家网点。',W/2,462,22,'#fff','center',700);rr(W/2-190,515,380,58,29,'#ffb300','#111');txt('点击开始闯关',W/2,545,26,'#111','center',900,false)}
+function drawStart(){drawMap('超级派送');ctx.fillStyle='rgba(0,0,0,.55)';ctx.fillRect(0,0,W,H);rr(155,112,970,490,30,'rgba(10,11,14,.92)','rgba(255,255,255,.14)');txt('超级派送',W/2,178,66,'#fff','center',900);txt('能哥配送大冒险｜｜竖屏优先版',W/2,238,26,'#ffb300','center',800);txt('城市 · 乡村大山 · 海岛 · 戈壁 · 高原 · 极寒',W/2,278,23,'#ffb300','center',800);rr(W/2-410,314,820,112,24,'rgba(255,255,255,.07)','rgba(255,255,255,.16)');txt('3秒上手',W/2,340,24,'#ffdf7a','center',900);txt('① 左右移动   ② 跳跃躲运宝   ③ 捡安心达货箱升级',W/2,382,24,'#fff','center',800);txt('变大 → 能量弹 → 护盾成长，遇安能货车还能加速。',W/2,420,20,'rgba(255,255,255,.86)','center',700,false);txt('穿越六大配送场景，最终点亮安能4.2万家网点。',W/2,462,22,'#fff','center',700);rr(W/2-190,515,380,58,29,'#ffb300','#111');txt('点击开始闯关',W/2,545,26,'#111','center',900,false)}
 function drawClear(){drawMap('配送场景完成');ctx.fillStyle='rgba(0,0,0,.50)';ctx.fillRect(0,0,W,H);const r=regions[currentLevel];const tempRank=rankNo(totalTime),pct=beatPercent(totalTime),title=rankTitle(totalTime);rr(230,140,820,430,30,'rgba(10,11,14,.96)','rgba(255,255,255,.15)');txt('配送完成',W/2,205,48,'#ffcc1f','center',900);txt('第 '+(currentLevel+1)+' 关：'+r.name,W/2,260,28,'#fff','center',900);rr(W/2-315,298,630,76,20,'rgba(255,179,0,.12)','rgba(255,179,0,.50)');txt('本关 '+fmtTime(lastLevelTime)+'   ｜   累计 '+fmtTime(totalTime),W/2,324,24,'#ffdf7a','center',900);txt('当前第 '+tempRank+' 名 · 击败 '+pct+'% 玩家 · '+title,W/2,358,21,'#fff','center',800);txt(currentLevel===5?'最终货物已成功签收，完成终局交付。':'安能4.2万家网点，一站接一站，把货安全送达。',W/2,415,21,'#fff','center',700);txt('截图分享：'+shareLine(),W/2,460,20,'#ffdf7a','center',800);rr(W/2-170,510,340,48,24,'#ffb300','#111');txt(currentLevel>=5?'查看最终成绩':'继续挑战下一关',W/2,534,22,'#111','center',900,false)}
-function drawWin(){drawMap('全国点亮完成');ctx.fillStyle='rgba(0,0,0,.54)';ctx.fillRect(0,0,W,H);const t=finalTime||totalTime,rank=rankNo(t),title=rankTitle(t),pct=beatPercent(t);rr(170,74,940,590,32,'rgba(10,11,14,.97)','rgba(255,255,255,.16)');txt('超级派送 第18版 通关成绩',W/2,140,44,'#ffcc1f','center',900);txt('我帮能哥完成了六大配送挑战',W/2,198,30,'#fff','center',900);rr(W/2-355,235,710,128,26,'rgba(255,179,0,.13)','rgba(255,179,0,.56)');txt('总用时：'+fmtTime(t)+'   ｜   SCORE '+String(score).padStart(6,'0'),W/2,275,27,'#ffdf7a','center',900);txt('当前挑战榜：第 '+rank+' 名   ｜   击败 '+pct+'% 玩家',W/2,315,25,'#fff','center',900);txt('荣誉称号：'+title,W/2,350,24,'#ffb300','center',900);txt('已完成：城市 / 乡村大山 / 海岛 / 戈壁 / 高原 / 极寒',W/2,404,21,'#fff','center',800);txt('安能4.2万家网点，跑成一张物流网。',W/2,440,24,'#fff','center',900);rr(W/2-350,474,700,58,27,'rgba(255,255,255,.07)','rgba(255,255,255,.20)');txt('截图分享：'+shareLine(),W/2,508,20,'#ffdf7a','center',900);
+function drawWin(){drawMap('全国点亮完成');ctx.fillStyle='rgba(0,0,0,.54)';ctx.fillRect(0,0,W,H);const t=finalTime||totalTime,rank=rankNo(t),title=rankTitle(t),pct=beatPercent(t);rr(170,74,940,590,32,'rgba(10,11,14,.97)','rgba(255,255,255,.16)');txt('超级派送  通关成绩',W/2,140,44,'#ffcc1f','center',900);txt('我帮能哥完成了六大配送挑战',W/2,198,30,'#fff','center',900);rr(W/2-355,235,710,128,26,'rgba(255,179,0,.13)','rgba(255,179,0,.56)');txt('总用时：'+fmtTime(t)+'   ｜   SCORE '+String(score).padStart(6,'0'),W/2,275,27,'#ffdf7a','center',900);txt('当前挑战榜：第 '+rank+' 名   ｜   击败 '+pct+'% 玩家',W/2,315,25,'#fff','center',900);txt('荣誉称号：'+title,W/2,350,24,'#ffb300','center',900);txt('已完成：城市 / 乡村大山 / 海岛 / 戈壁 / 高原 / 极寒',W/2,404,21,'#fff','center',800);txt('安能4.2万家网点，跑成一张物流网。',W/2,440,24,'#fff','center',900);rr(W/2-350,474,700,58,27,'rgba(255,255,255,.07)','rgba(255,255,255,.20)');txt('截图分享：'+shareLine(),W/2,508,20,'#ffdf7a','center',900);
  rr(180,560,250,46,23,'#ffb300','#111');txt(posterBusy?'海报生成中':'生成分享海报',305,583,21,'#111','center',900,false);
  rr(475,560,250,46,23,'#fff','#111');txt(copiedTipTimer>0?'已复制战绩文案':'复制战绩文案',600,583,21,'#111','center',900,false);
  rr(770,560,160,46,23,'#fff','#111');txt('重玩',850,583,21,'#111','center',900,false);
  txt('海报内含二维码，扫码可直接进入游戏；也可截图发群挑战同事。',W/2,640,17,'rgba(255,255,255,.78)','center',700,false);
  if(posterMsg)txt(posterMsg,W/2,468,18,'#fff','center',700,false)
 }
-function drawLose(){drawSky();drawScene();drawGround();drawHUD();ctx.fillStyle='rgba(0,0,0,.62)';ctx.fillRect(0,0,W,H);rr(300,200,680,300,30,'rgba(10,11,14,.96)','rgba(255,255,255,.16)');txt('挑战失败',W/2,270,52,'#ff6b6b','center',900);txt('你的货物被妖怪吃掉啦！',W/2,335,30,'#ffdf7a','center',900);txt('别慌，当前关可先复活一次；复活用完再重新开始。',W/2,382,22,'#fff','center',700);rr(W/2-175,430,350,54,27,'#fff','#111');txt('重新开始配送',W/2,457,24,'#111','center',900,false)}
+
+function drawLose(){drawSky();drawScene();drawGround();drawHUD();ctx.fillStyle='rgba(0,0,0,.62)';ctx.fillRect(0,0,W,H);rr(300,200,680,300,30,'rgba(10,11,14,.96)','rgba(255,255,255,.16)');txt('挑战失败',W/2,270,52,'#ff6b6b','center',900);txt('你的货物被妖怪吃掉啦！',W/2,335,30,'#ffdf7a','center',900);txt('别慌，本关重新装车，再送一次。',W/2,382,22,'#fff','center',700);rr(W/2-175,430,350,54,27,'#fff','#111');txt('重试当前关',W/2,457,24,'#111','center',900,false)}
+
 
 function renderScene(){
  ctx.clearRect(0,0,W,H);
@@ -511,62 +516,62 @@ function renderScene(){
 }
 function mrr(x,y,w,h,r,fill,stroke){mainCtx.beginPath();mainCtx.moveTo(x+r,y);mainCtx.arcTo(x+w,y,x+w,y+h,r);mainCtx.arcTo(x+w,y+h,x,y+h,r);mainCtx.arcTo(x,y+h,x,y,r);mainCtx.arcTo(x,y,x+w,y,r);mainCtx.closePath();if(fill){mainCtx.fillStyle=fill;mainCtx.fill()}if(stroke){mainCtx.strokeStyle=stroke;mainCtx.lineWidth=3;mainCtx.stroke()}}
 function mtxt(str,x,y,size,color='#fff',align='left',weight=800){mainCtx.fillStyle=color;mainCtx.font=`${weight} ${size}px sans-serif`;mainCtx.textAlign=align;mainCtx.textBaseline='middle';mainCtx.fillText(str,x,y)}
-function getSceneRect(){return{x:28,y:132,w:1024,h:640}}
+function getSceneRect(){return{x:20,y:126,w:1040,h:710}}
+
+
+
+
 
 
 function composePortrait(){
  const bg=mainCtx.createLinearGradient(0,0,0,MAIN_H);
- bg.addColorStop(0,'#07111b');bg.addColorStop(.52,'#0b1220');bg.addColorStop(1,'#05070d');
+ bg.addColorStop(0,'#07111b');bg.addColorStop(.55,'#0b1220');bg.addColorStop(1,'#05070d');
  mainCtx.fillStyle=bg;mainCtx.fillRect(0,0,MAIN_W,MAIN_H);
 
- // 顶部紧凑 HUD：压缩大标题区，把空间让给游戏画面
- mrr(22,18,1036,94,26,'rgba(8,11,16,.96)','rgba(255,186,62,.28)');
- mtxt('超级派送',54,52,36,'#ffffff','left',900);
- mtxt('第18版｜竖屏真手机版',54,88,22,'#ffcc45','left',800);
- mtxt('❤️ '+lives,442,58,30,'#ffffff','left',900);
- mtxt('🌱 '+power+'/3',560,58,30,'#ffffff','left',900);
- mtxt('📦 '+litRegions()+'/6',704,58,30,'#ffffff','left',900);
- mrr(838,48,176,20,10,'rgba(255,255,255,.14)');
- mrr(838,48,176*(litRegions()/6),20,10,'#ffb300');
- mtxt('SCORE '+String(score).padStart(6,'0'),842,92,20,'#ffdf7a','left',800);
+ // 玩家发布版顶部：只保留标题和核心状态，不露出版号
+ mrr(20,16,1040,92,28,'rgba(8,11,16,.96)','rgba(255,186,62,.30)');
+ mtxt('超级能哥',48,52,42,'#ffffff','left',900);
+ mtxt('安心托付｜用心交付',48,86,20,'#ffcc45','left',800);
 
- const r=regions[currentLevel];
- mrr(22,118,1036,42,18,'rgba(255,255,255,.07)','rgba(255,255,255,.12)');
- mtxt('第 '+(currentLevel+1)+' 关｜'+r.name+'：'+(r.desc||levelNote||'完成本场景配送'),54,140,22,'#ffffff','left',800);
+ mtxt('❤️ '+lives,468,56,30,'#ffffff','left',900);
+ mtxt('🌱 '+power+'/3',584,56,30,'#ffffff','left',900);
+ mtxt('📦 '+litRegions()+'/6',718,56,30,'#ffffff','left',900);
+ mrr(850,44,158,18,9,'rgba(255,255,255,.14)');
+ mrr(850,44,158*(litRegions()/6),18,9,'#ffb300');
+ mtxt('SCORE '+String(score).padStart(6,'0'),846,88,20,'#ffdf7a','left',800);
 
- // 主游戏画面：上移并放大
+ // 主游戏画面：放大并下移，减少空白感
  const sr=getSceneRect();
- mrr(sr.x-8,sr.y-8,sr.w+16,sr.h+16,28,'rgba(17,22,35,.98)','rgba(255,179,0,.25)');
+ mrr(sr.x-6,sr.y-6,sr.w+12,sr.h+12,28,'rgba(17,22,35,.98)','rgba(255,179,0,.25)');
  mainCtx.fillStyle='#0e1625';mainCtx.fillRect(sr.x,sr.y,sr.w,sr.h);
  mainCtx.drawImage(sceneCanvas,sr.x,sr.y,sr.w,sr.h);
 
- // 实时提醒区：简化成“主提示 + 辅助提示”
- mrr(28,792,1024,148,28,'rgba(8,11,16,.98)','rgba(255,255,255,.14)');
- mtxt('📋 实时派送提醒',72,825,28,'#ffffff','left',900);
+ // 关卡卡片放在游戏画面内，避免顶部拥挤
+ const r=regions[currentLevel];
+ mrr(sr.x+18,sr.y+60,230,120,20,'rgba(8,11,16,.72)','rgba(255,255,255,.08)');
+ mtxt('第 '+(currentLevel+1)+' 关',sr.x+34,sr.y+88,24,'#ffcc45','left',900);
+ mtxt(r.name,sr.x+34,sr.y+124,34,'#ffffff','left',900);
+ mtxt(r.desc||levelNote||'完成本场景配送',sr.x+34,sr.y+158,18,'rgba(255,255,255,.86)','left',700);
+
+ // 实时提醒区：合并规则说明，不再单独占一大块
+ mrr(28,854,1024,148,26,'rgba(8,11,16,.98)','rgba(255,255,255,.14)');
+ mtxt('📋 实时派送提醒',72,886,28,'#ffffff','left',900);
  const tipA=liveTips[0]||'收集安心达货箱成长，击败运宝障碍';
- const tipB=liveTips[1]||'完成当前关卡配送后进入下一场景';
- mtxt('⭐ '+tipA,72,865,26,'#ffcc45','left',900);
- mtxt('• '+tipB,72,902,22,'rgba(255,255,255,.86)','left',700);
- mrr(800,818,216,84,24,'rgba(255,179,0,.12)','rgba(255,179,0,.5)');
- mtxt('用时',908,842,22,'#ffffff','center',800);
- mtxt(elapsed.toFixed(1)+'s',908,880,34,'#ffcc45','center',900);
-
- // 操作区上方提示，不再留下大面积黑区
- mrr(28,960,1024,86,26,'rgba(255,255,255,.045)','rgba(255,255,255,.08)');
- mtxt(reviveUsed?'本关复活已使用｜再失败就要重新配送':'三条命耗尽后，本关可复活一次，再送3条命',72,993,24,'#ffffff','left',800);
- mtxt('底部按钮已上移：左移 / 右移 / 发射 / 跳跃',72,1024,22,'rgba(255,255,255,.72)','left',700);
-
- const gd=mainCtx.createLinearGradient(0,1060,0,MAIN_H);
- gd.addColorStop(0,'rgba(5,7,13,0)');
- gd.addColorStop(1,'rgba(5,7,13,1)');
- mainCtx.fillStyle=gd;mainCtx.fillRect(0,1060,MAIN_W,140);
+ const reviveLine=reviveUsed?'本关复活已使用｜再失败就要重新配送':'三条命耗尽后，本关可复活一次，再送3条命';
+ mtxt('⭐ '+tipA,72,926,25,'#ffcc45','left',900);
+ mtxt('• '+reviveLine,72,958,20,'rgba(255,255,255,.86)','left',700);
+ mrr(814,878,202,78,24,'rgba(255,179,0,.12)','rgba(255,179,0,.5)');
+ mtxt('用时',915,900,20,'#ffffff','center',800);
+ mtxt(elapsed.toFixed(1)+'s',915,937,34,'#ffcc45','center',900);
 }
+
+
 
 function render(){renderScene();composePortrait()}
 
 function loop(){if(copiedTipTimer>0)copiedTipTimer--;if(state==='play')update();render();requestAnimationFrame(loop)}loop();
 
-window.addEventListener('keydown',e=>{keys[e.key]=true;if([' ','ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.key))e.preventDefault();if(e.key==='f'||e.key==='F')shoot();if(e.key==='m'||e.key==='M'){musicOn=!musicOn;if(!musicOn)stopMusic();else if(state==='play')startMusic()}if((state==='start'||state==='map')&&(e.key==='Enter'||e.key===' '))setupLevel(currentLevel);if(state==='clear'&&(e.key==='Enter'||e.key===' ')){if(currentLevel>=5)state='win';else{currentLevel++;state='map'}}if(state==='lose'&&(e.key==='Enter'||e.key===' '))resetAll();if(state==='win'&&(e.key==='c'||e.key==='C'))copyShareText();if(state==='win'&&(e.key==='p'||e.key==='P'))generateSharePoster();if(state==='win'&&(e.key==='Enter'||e.key===' '))resetAll();if(state==='poster'&&(e.key==='Escape'||e.key==='Enter'||e.key===' '))state='win'});
+window.addEventListener('keydown',e=>{keys[e.key]=true;if([' ','ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.key))e.preventDefault();if(e.key==='f'||e.key==='F')shoot();if(e.key==='m'||e.key==='M'){musicOn=!musicOn;if(!musicOn)stopMusic();else if(state==='play')startMusic()}if((state==='start'||state==='map')&&(e.key==='Enter'||e.key===' '))setupLevel(currentLevel);if(state==='clear'&&(e.key==='Enter'||e.key===' ')){if(currentLevel>=5)state='win';else{currentLevel++;state='map'}}if(state==='lose'&&(e.key==='Enter'||e.key===' '))setupLevel(currentLevel);if(state==='win'&&(e.key==='c'||e.key==='C'))copyShareText();if(state==='win'&&(e.key==='p'||e.key==='P'))generateSharePoster();if(state==='win'&&(e.key==='Enter'||e.key===' '))resetAll();if(state==='poster'&&(e.key==='Escape'||e.key==='Enter'||e.key===' '))state='win'});
 window.addEventListener('keyup',e=>{keys[e.key]=false});
 
 function point(evt){
@@ -580,10 +585,11 @@ function point(evt){
 }
 
 function clearTouch(){touch.left=touch.right=touch.jump=touch.shoot=false}
+
 function press(p){
  if(state==='start'||state==='map'){setupLevel(currentLevel);return}
  if(state==='clear'){if(currentLevel>=5)state='win';else{currentLevel++;state='map'}return}
- if(state==='lose'){resetAll();return}
+ if(state==='lose'){setupLevel(currentLevel);return}
  if(state==='win'){
    if(p.x>180&&p.x<430&&p.y>560&&p.y<606){generateSharePoster();return}
    if(p.x>475&&p.x<725&&p.y>560&&p.y<606){copyShareText();return}
@@ -597,6 +603,7 @@ function press(p){
  }
  clearTouch();if(p.x>18&&p.x<170&&p.y>H-190)touch.left=true;else if(p.x>188&&p.x<340&&p.y>H-190)touch.right=true;else if(p.x>W-405&&p.x<W-225&&p.y>H-190){touch.shoot=true;shoot()}else if(p.x>W-205&&p.y>H-190)touch.jump=true
 }
+
 canvas.addEventListener('mousedown',e=>press(point(e)));canvas.addEventListener('mousemove',e=>{if(e.buttons)press(point(e))});canvas.addEventListener('mouseup',clearTouch);canvas.addEventListener('mouseleave',clearTouch);
 canvas.addEventListener('touchstart',e=>{e.preventDefault();press(point(e))},{passive:false});canvas.addEventListener('touchmove',e=>{e.preventDefault();press(point(e))},{passive:false});canvas.addEventListener('touchend',e=>{e.preventDefault();clearTouch()},{passive:false});
 
@@ -611,7 +618,7 @@ function bindPadButton(id,key){
 }
 bindPadButton('btnLeft','left');bindPadButton('btnRight','right');bindPadButton('btnJump','jump');bindPadButton('btnShoot','shoot');
 
-<!-- 第18版：手机端按钮放大、横竖屏对比、终局签收修复、失败幽默提示。 -->
+<!-- ：手机端按钮放大、横竖屏对比、终局签收修复、失败幽默提示。 -->
 
 </script>
 </body>
